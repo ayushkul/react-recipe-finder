@@ -60,6 +60,7 @@ const RecipeComponent = (props) => {
       >
         <DialogTitle>Ingredients</DialogTitle>
         <DialogContent>
+          <RecipeName>{label}</RecipeName>
           <table>
             <thead>
               <th>Ingredient</th>
