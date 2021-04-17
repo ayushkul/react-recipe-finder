@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import styled from "styled-components";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
 
 const APP_ID = "a52b4d43";
 const APP_KEY = "e0e5c667605f5e91d8275c973531b80a";
@@ -30,8 +34,8 @@ const SeeMoreText = styled.span`
   font-size: 18px;
   text-align: center;
   border: solid 1px #eb3300;
-  border-radius: 2px;
-  padding: 10px;
+  border-radius: 3px;
+  padding: 10px 15px;
   cursor: pointer;
 `;
 const IngredientsText = styled(SeeMoreText)`
@@ -39,23 +43,51 @@ const IngredientsText = styled(SeeMoreText)`
   border: solid 1px green;
   margin-bottom: 12px;
 `;
+const SeeNewTab = styled(SeeMoreText)`
+  color: green;
+  border: solid 1px green;
+`;
 const RecipeComponent = (props) => {
   const [show, setShow] = useState("");
 
   const { label, image, ingredients, url } = props.recipe;
   return (
     <RecipeContainer>
+      <Dialog
+        onClose={() => console.log("adsadad")}
+        aria-labelledby="simple-dialog-title"
+        open={show}
+      >
+        <DialogTitle>Ingredients</DialogTitle>
+        <DialogContent>
+          <table>
+            <thead>
+              <th>Ingredient</th>
+              <th>Weight</th>
+            </thead>
+            <tbody>
+              {ingredients.map((ingredient, index) => (
+                <tr key={index} className="ingredient-list">
+                  <td>{ingredient.text}</td>
+                  <td>{ingredient.weight}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </DialogContent>
+        <DialogActions>
+          <SeeNewTab onClick={() => window.open(url)}>See More</SeeNewTab>
+          <SeeMoreText onClick={() => setShow("")}>Close</SeeMoreText>
+        </DialogActions>
+      </Dialog>
       <CoverImage src={image} alt={label} />
       <RecipeName>{label}</RecipeName>
-      <IngredientsText onClick={() => setShow(!show)}>Ingredients</IngredientsText>
-      {show &&
-        ingredients.map((ingredient, index) => (
-          <ul key={index} className="ingredient-list">
-            <li className="ingredient-text">{ingredient.text}</li>
-            <li className="ingredient-weight">Weight - {ingredient.weight}</li>
-          </ul>
-        ))}
-      <SeeMoreText onClick={()=>window.open(url)}>See Complete Recipe</SeeMoreText>
+      <IngredientsText onClick={() => setShow(!show)}>
+        Ingredients
+      </IngredientsText>
+      <SeeMoreText onClick={() => window.open(url)}>
+        See Complete Recipe
+      </SeeMoreText>
     </RecipeContainer>
   );
 };
