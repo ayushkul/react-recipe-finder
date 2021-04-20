@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/react-recipe-finder/static/css/main.07b4b6f6.chunk.css",
+    "main.js": "/react-recipe-finder/static/js/main.f0d96a94.chunk.js",
+    "main.js.map": "/react-recipe-finder/static/js/main.f0d96a94.chunk.js.map",
+    "runtime-main.js": "/react-recipe-finder/static/js/runtime-main.b2854300.js",
+    "runtime-main.js.map": "/react-recipe-finder/static/js/runtime-main.b2854300.js.map",
+    "static/js/2.8255d1ce.chunk.js": "/react-recipe-finder/static/js/2.8255d1ce.chunk.js",
+    "static/js/2.8255d1ce.chunk.js.map": "/react-recipe-finder/static/js/2.8255d1ce.chunk.js.map",
+    "index.html": "/react-recipe-finder/index.html",
+    "static/css/main.07b4b6f6.chunk.css.map": "/react-recipe-finder/static/css/main.07b4b6f6.chunk.css.map",
+    "static/js/2.8255d1ce.chunk.js.LICENSE.txt": "/react-recipe-finder/static/js/2.8255d1ce.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b2854300.js",
+    "static/js/2.8255d1ce.chunk.js",
+    "static/css/main.07b4b6f6.chunk.css",
+    "static/js/main.f0d96a94.chunk.js"
+  ]
+}
