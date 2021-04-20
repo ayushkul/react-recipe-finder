@@ -179,7 +179,7 @@ const AppComponent = () => {
           Recipe Finder
         </AppName>
         <SearchBox>
-          <SearchIcon src="/search-icon.svg" />
+          <SearchIcon src="/react-recipe-finder/search-icon.svg" />
           <SearchInput
             placeholder="Search Recipe"
             value={searchQuery}
@@ -193,7 +193,7 @@ const AppComponent = () => {
             <RecipeComponent key={index} recipe={recipe.recipe} />
           ))
         ) : (
-          <Placeholder src="/hamburger.svg" />
+          <Placeholder src="/react-recipe-finder/hamburger.svg" />
         )}
       </RecipeListContainer>
     </Container>
