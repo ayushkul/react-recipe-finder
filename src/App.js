@@ -175,7 +175,7 @@ const AppComponent = () => {
     <Container>
       <Header>
         <AppName>
-          <RecipeImage src="/hamburger.svg" />
+          <RecipeImage src="/react-recipe-finder/hamburger.svg" />
           Recipe Finder
         </AppName>
         <SearchBox>
