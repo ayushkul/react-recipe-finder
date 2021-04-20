@@ -56,7 +56,7 @@ const RecipeComponent = (props) => {
       <Dialog
         onClose={() => console.log("adsadad")}
         aria-labelledby="simple-dialog-title"
-        open={show}
+        open={!!show}
       >
         <DialogTitle>Ingredients</DialogTitle>
         <DialogContent>
@@ -96,6 +96,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+const AppName = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 const Header = styled.div`
   background-color: black;
   color: white;
@@ -108,16 +113,37 @@ const Header = styled.div`
   font-weight: bold;
   box-shadow: 0 3px 6px 0 #555;
 `;
+const SearchBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 10px 10px;
+  border-radius: 6px;
+  margin-left: 20px;
+  width: 50%;
+  background-color: white;
+`;
+const SearchIcon = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+const RecipeImage = styled.img`
+  width: 36px;
+  height: 36px;
+  margin: 15px;
+`;
+const Placeholder = styled.img`
+  width: 120px;
+  height: 120px;
+  margin: 200px;
+  opacity: 50%;
+`;
 const SearchInput = styled.input`
   color: black;
-  padding: 10px 10px;
   font-size: 16px;
   font-weight: bold;
-  margin-left: 20px;
   border: none;
-  width: 50%;
   outline: none;
-  border-radius: 6px;
+  margin-left: 15px;
 `;
 const RecipeListContainer = styled.div`
   display: flex;
@@ -130,31 +156,45 @@ const RecipeListContainer = styled.div`
 const AppComponent = () => {
   const [searchQuery, updateSearchQuery] = useState("");
   const [recipeList, updateRecipeList] = useState([]);
-
-  const fetchData = async () => {
+  const [timeoutId, updateTimeoutId] = useState();
+  const fetchData = async (searchString) => {
     const response = await Axios.get(
-      `https://api.edamam.com/search?q=${searchQuery}&app_id=${APP_ID}&app_key=${APP_KEY}`,
+      `https://api.edamam.com/search?q=${searchString}&app_id=${APP_ID}&app_key=${APP_KEY}`,
     );
     updateRecipeList(response.data.hits);
+  };
+
+  const onTextChange = (e) => {
+    clearTimeout(timeoutId);
+    updateSearchQuery(e.target.value);
+    const timeout = setTimeout(() => fetchData(e.target.value), 500);
+    updateTimeoutId(timeout);
   };
 
   return (
     <Container>
       <Header>
-        Recipe Finder
-        <SearchInput
-          placeholder="Search Recipe"
-          value={searchQuery}
-          onChange={(e) => {
-            updateSearchQuery(e.target.value);
-            fetchData();
-          }}
-        />
+        <AppName>
+          <RecipeImage src="/hamburger.svg" />
+          Recipe Finder
+        </AppName>
+        <SearchBox>
+          <SearchIcon src="/search-icon.svg" />
+          <SearchInput
+            placeholder="Search Recipe"
+            value={searchQuery}
+            onChange={onTextChange}
+          />
+        </SearchBox>
       </Header>
       <RecipeListContainer>
-        {recipeList.map((recipe, index) => (
-          <RecipeComponent key={index} recipe={recipe.recipe} />
-        ))}
+        {recipeList?.length ? (
+          recipeList.map((recipe, index) => (
+            <RecipeComponent key={index} recipe={recipe.recipe} />
+          ))
+        ) : (
+          <Placeholder src="/hamburger.svg" />
+        )}
       </RecipeListContainer>
     </Container>
   );
